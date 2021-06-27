@@ -12,6 +12,7 @@ import java.io.*;
  * @author Yehoshua Halle
  *
  */
+
 public class NetworkIO {
 	private final static int DEFAULTBUFFERSIZE = 8192;
 	// Eight bytes with many 1s in a row. I understand that it adds a lot of data,
@@ -258,6 +259,10 @@ public class NetworkIO {
 		serverClients.clear();
 		serverBuffers.clear();
 		serverData.clear();
+	}
+	
+	public int getServerPort() {
+		return this.serverPort;
 	}
 
 	/**
