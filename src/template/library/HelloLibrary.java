@@ -1,7 +1,7 @@
 package template.library;
 
 import processing.core.*;
-
+import processing.net.*;
 /**
  * This is a template class and can be used to start a new processing Library.
  * Make sure you rename this class as well as the name of the example package 'template' 
