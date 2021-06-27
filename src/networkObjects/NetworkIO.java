@@ -90,8 +90,38 @@ public class NetworkIO {
 		this(parent, serverPort, DEFAULTBUFFERSIZE, DEFAULTBUFFERSIZE, findPublicIP);
 	}
 
+	/**
+	 * Returns the public IP of this device if found using findPublicIP()
+	 */
 	public String getPublicIP() {
 		return publicIP;
+	}
+
+	/**
+	 * Sets an action to be run when a client connects to the internal server.
+	 * 
+	 * @param action
+	 */
+	public void setServerConnectAction(NetAction action) {
+		this.serverConnectAction = action;
+	}
+
+	/**
+	 * Sets an action to be run when a client disconnects from the internal server.
+	 * 
+	 * @param action
+	 */
+	public void setServerDisconnectAction(NetAction action) {
+		this.serverDisconnectAction = action;
+	}
+
+	/**
+	 * Sets an action to be run when an external server disconnects
+	 * 
+	 * @param action
+	 */
+	public void setClientDisconnectAction(NetAction action) {
+		this.clientDisconnectAction = action;
 	}
 
 	/**
@@ -148,6 +178,29 @@ public class NetworkIO {
 				clientDisconnectAction.act(this, oldClient);
 			}
 			removeConnection(oldClient);
+		}
+	}
+
+	/**
+	 * Uses http://checkip.amazonaws.com to find this device's public IP address.
+	 * Can be called in the constructor by putting 'true' as the last argument.
+	 */
+	public void findPublicIP() {
+		BufferedReader in = null;
+		try {
+			URL whatismyip = new URL("http://checkip.amazonaws.com");
+			in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			publicIP = in.readLine(); // you get the IP as a String
+		} catch (Exception e) {
+			publicIP = null;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -260,7 +313,7 @@ public class NetworkIO {
 		serverBuffers.clear();
 		serverData.clear();
 	}
-	
+
 	public int getServerPort() {
 		return this.serverPort;
 	}
@@ -672,24 +725,5 @@ public class NetworkIO {
 		clients.remove(c.ip());
 		clientBuffers.remove(c.ip());
 		clientData.remove(c.ip());
-	}
-
-	private void findPublicIP() {
-		BufferedReader in = null;
-		try {
-			URL whatismyip = new URL("http://checkip.amazonaws.com");
-			in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
-			publicIP = in.readLine(); // you get the IP as a String
-		} catch (Exception e) {
-			publicIP = null;
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 }
