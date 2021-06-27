@@ -1,6 +1,5 @@
 package template.library;
 
-
 import processing.core.*;
 
 /**
