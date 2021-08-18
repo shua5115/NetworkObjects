@@ -96,7 +96,12 @@ public class NetworkIO {
 	public String getPublicIP() {
 		return publicIP;
 	}
-
+	/**
+	 * Returns the local IP of this device
+	 */
+	public String getServerIP() {
+		return Server.ip();
+	}
 	/**
 	 * Sets an action to be run when a client connects to the internal server.
 	 * 
