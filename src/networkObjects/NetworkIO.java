@@ -19,7 +19,7 @@ public class NetworkIO {
 	// Eight bytes with many 1s in a row. I understand that it adds a lot of data,
 	// but this has good results for splitting diverse packet data.
 	// If you need to send a long value of -2, you should change this for both the
-	// sending and recieving end.
+	// sending and receiving end.
 	private final byte[] ENDSEQUENCE = ByteOps.toByteArray((long) -2);
 	private PApplet parent;
 	private HashMap<String, Packet> packetTypes;
