@@ -15,6 +15,7 @@ import java.io.*;
 
 public class NetworkIO {
 	private final static int DEFAULTBUFFERSIZE = 8192;
+	public final static String LOCALHOST = "127.0.0.1";
 	// Eight bytes with many 1s in a row. I understand that it adds a lot of data,
 	// but this has good results for splitting diverse packet data.
 	// If you need to send a long value of -2, you should change this for both the
@@ -474,7 +475,7 @@ public class NetworkIO {
 			// check if connecting to itself, then use localhost ip
 			// this is because the ip needs to be localhost for the NetworkIO to detect a
 			// circular connection
-			ip = "127.0.0.1";
+			ip = LOCALHOST;
 		}
 		try {
 			Client client = new Client(parent, ip, port); // BUG: can freeze program if connection issues arise
@@ -615,7 +616,7 @@ public class NetworkIO {
 	}
 
 	public boolean isLocalHost(String ip) {
-		return ip.equals("localhost") || ip.equals("127.0.0.1");
+		return ip.equals("localhost") || ip.equals(LOCALHOST);
 	}
 
 	// PRIVATE METHODS
